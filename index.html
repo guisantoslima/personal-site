@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guilherme Lima — Sr. Salesforce Solution Architect</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
+
+  :root{
+    --bg: #0b0d10;
+    --bg-soft: #12151a;
+    --panel: #14181d;
+    --border: #262b33;
+    --text: #d7dce2;
+    --text-dim: #7c8797;
+    --accent: #7ee787;
+    --accent-dim: #4f8f57;
+    --amber: #e3b341;
+    --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+    --font-sans: 'Inter', system-ui, sans-serif;
+  }
+  [data-theme="light"]{
+    --bg: #f6f7f5;
+    --bg-soft: #ffffff;
+    --panel: #ffffff;
+    --border: #dde1de;
+    --text: #1b1f23;
+    --text-dim: #5b6470;
+    --accent: #1f8a3d;
+    --accent-dim: #2ea44f;
+    --amber: #a06a00;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    transition:background .3s ease,color .3s ease;
+  }
+  ::selection{background:var(--accent);color:#08110a;}
+
+  a{color:var(--accent);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  .mono{font-family:var(--font-mono);}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 32px;
+    background:color-mix(in srgb, var(--bg) 85%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+  }
+  .topbar .path{font-family:var(--font-mono);font-size:14px;color:var(--text-dim);}
+  .topbar .path span{color:var(--accent);}
+  .topbar nav{display:flex;gap:18px;align-items:center;}
+  .topbar nav a{font-family:var(--font-mono);font-size:13px;color:var(--text-dim);}
+  .topbar nav a:hover{color:var(--text);text-decoration:none;}
+  .icon-btn{
+    font-family:var(--font-mono);font-size:12px;
+    border:1px solid var(--border);background:var(--panel);
+    color:var(--text-dim);padding:6px 10px;border-radius:6px;cursor:pointer;
+  }
+  .icon-btn:hover{color:var(--accent);border-color:var(--accent-dim);}
+  .lang-group{display:flex;border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+  .lang-group button{
+    font-family:var(--font-mono);font-size:12px;padding:6px 10px;
+    background:var(--panel);color:var(--text-dim);border:none;cursor:pointer;border-right:1px solid var(--border);
+  }
+  .lang-group button:last-child{border-right:none;}
+  .lang-group button.active{color:var(--accent);background:var(--bg-soft);}
+
+  /* ---------- hero / terminal ---------- */
+  .hero{
+    max-width:860px;margin:0 auto;
+    padding:90px 32px 60px;
+  }
+  .window{
+    background:var(--bg-soft);
+    border:1px solid var(--border);
+    border-radius:10px;
+    overflow:hidden;
+    box-shadow:0 30px 60px -20px rgba(0,0,0,.5);
+  }
+  [data-theme="light"] .window{ box-shadow:0 20px 40px -20px rgba(0,0,0,.15); }
+  .window-bar{
+    display:flex;align-items:center;gap:8px;
+    padding:12px 16px;border-bottom:1px solid var(--border);
+  }
+  .dot{width:11px;height:11px;border-radius:50%;}
+  .dot.red{background:#ff5f57;} .dot.yellow{background:#febc2e;} .dot.green{background:#28c840;}
+  .window-title{margin-left:8px;font-family:var(--font-mono);font-size:12px;color:var(--text-dim);}
+  .window-body{padding:26px 28px 32px;font-family:var(--font-mono);font-size:15px;}
+  .line{margin-bottom:6px;color:var(--text-dim);}
+  .prompt{color:var(--accent);}
+  .typed{color:var(--text);white-space:pre-wrap;}
+  .cursor{display:inline-block;width:8px;height:16px;background:var(--accent);vertical-align:middle;margin-left:2px;animation:blink 1s steps(2) infinite;}
+  @keyframes blink{50%{opacity:0;}}
+
+  .name{
+    font-size:clamp(30px,5vw,46px);
+    font-weight:800;
+    margin:18px 0 4px;
+    letter-spacing:-0.02em;
+  }
+  .role{
+    font-family:var(--font-mono);
+    color:var(--amber);
+    font-size:15px;margin-bottom:6px;
+  }
+  .role-sub{
+    font-family:var(--font-mono);
+    color:var(--text-dim);
+    font-size:12.5px;margin-bottom:18px;
+  }
+  .tagline{color:var(--text-dim);max-width:560px;margin-bottom:24px;font-size:15.5px;}
+  .cta-row{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-mono);font-size:13px;
+    padding:10px 16px;border-radius:6px;border:1px solid var(--border);
+    color:var(--text);transition:all .15s ease;
+  }
+  .btn.primary{background:var(--accent);color:#08110a;border-color:var(--accent);font-weight:600;}
+  .btn.primary:hover{opacity:.85;text-decoration:none;}
+  .btn:not(.primary):hover{border-color:var(--accent-dim);color:var(--accent);text-decoration:none;}
+
+  /* ---------- sections ---------- */
+  section{max-width:860px;margin:0 auto;padding:50px 32px;}
+  .eyebrow{
+    font-family:var(--font-mono);font-size:12px;color:var(--accent);
+    display:flex;align-items:center;gap:10px;margin-bottom:18px;
+  }
+  .eyebrow::before{content:'$';color:var(--text-dim);}
+  .eyebrow::after{content:'';flex:1;height:1px;background:var(--border);}
+  h2{font-size:22px;font-weight:700;margin-bottom:6px;}
+  .section-sub{color:var(--text-dim);font-size:14.5px;margin-bottom:28px;}
+
+  /* about */
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .about-grid p{color:var(--text-dim);font-size:15px;margin-bottom:12px;}
+  .stack{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;}
+  .chip{
+    font-family:var(--font-mono);font-size:12px;
+    border:1px solid var(--border);padding:5px 10px;border-radius:5px;color:var(--text-dim);
+  }
+
+  /* services */
+  .services{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  .card{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:22px;transition:border-color .2s ease, transform .2s ease;
+  }
+  .card:hover{border-color:var(--accent-dim);transform:translateY(-3px);}
+  .card .tag{font-family:var(--font-mono);font-size:11px;color:var(--accent);margin-bottom:10px;display:block;}
+  .card h3{font-size:16px;margin-bottom:8px;}
+  .card p{color:var(--text-dim);font-size:13.5px;}
+
+  /* experience */
+  .timeline{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+  .tl-item{
+    display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start;
+    padding:18px 22px;border-bottom:1px solid var(--border);
+    background:var(--panel);
+  }
+  .tl-item:last-child{border-bottom:none;}
+  .tl-item:hover{background:var(--bg-soft);}
+  .tl-item .yr{font-family:var(--font-mono);color:var(--text-dim);font-size:13px;padding-top:2px;}
+  .tl-item h3{font-size:15.5px;margin-bottom:4px;}
+  .tl-item p{color:var(--text-dim);font-size:13.5px;}
+
+  /* certifications */
+  .certs{display:flex;flex-wrap:wrap;gap:10px;}
+  .cert{
+    font-family:var(--font-mono);font-size:12.5px;
+    border:1px solid var(--border);background:var(--panel);
+    padding:8px 12px;border-radius:6px;color:var(--text);
+    display:flex;align-items:center;gap:8px;
+  }
+  .cert::before{content:'✓';color:var(--accent);}
+
+  /* contact */
+  .contact-box{
+    background:var(--panel);border:1px solid var(--border);border-radius:8px;
+    padding:30px 28px;
+  }
+  .contact-box p{color:var(--text-dim);margin-bottom:20px;font-size:14.5px;}
+  .contact-links{display:flex;flex-direction:column;gap:10px;font-family:var(--font-mono);font-size:14px;}
+  .contact-links a{color:var(--text);}
+  .contact-links a:hover{color:var(--accent);}
+  .contact-links .k{color:var(--text-dim);}
+
+  footer{
+    text-align:center;padding:30px 20px 50px;
+    font-family:var(--font-mono);font-size:12px;color:var(--text-dim);
+  }
+
+  @media(max-width:720px){
+    .about-grid{grid-template-columns:1fr;}
+    .services{grid-template-columns:1fr;}
+    .tl-item{grid-template-columns:1fr;gap:4px;}
+    .topbar nav a{display:none;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cursor{animation:none;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body data-theme="dark">
+
+<div class="topbar">
+  <div class="path mono">~/<span>guisantoslima</span></div>
+  <nav>
+    <a href="#sobre" data-i18n="nav_about">sobre</a>
+    <a href="#especialidades" data-i18n="nav_services">especialidades</a>
+    <a href="#experiencia" data-i18n="nav_experience">experiência</a>
+    <a href="#contato" data-i18n="nav_contact">contato</a>
+    <div class="lang-group">
+      <button id="langPt" class="active">PT</button>
+      <button id="langEn">EN</button>
+    </div>
+    <button class="icon-btn" id="themeToggle" data-i18n="theme_light">modo claro</button>
+  </nav>
+</div>
+
+<section class="hero">
+  <div class="window">
+    <div class="window-bar">
+      <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+      <div class="window-title">guisantoslima@root — zsh</div>
+    </div>
+    <div class="window-body">
+      <div class="line"><span class="prompt">$</span> whoami</div>
+      <div class="line typed" id="typedLine"></div>
+    </div>
+  </div>
+
+  <h1 class="name">~/ Guilherme Lima</h1>
+  <div class="role" data-i18n="role">Sr. Salesforce Solution Architect</div>
+  <div class="role-sub" data-i18n="role_sub">Trusted Advisor · CoE · TOGAF · +15 anos de experiência em Salesforce</div>
+  <p class="tagline" data-i18n="tagline">Desenho arquiteturas Salesforce escaláveis e governança de plataforma para grandes empresas, conectando estratégia de negócio a soluções técnicas robustas.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="#contato" data-i18n="cta_contact">Falar comigo</a>
+    <a class="btn" href="#experiencia" data-i18n="cta_experience">Ver experiência</a>
+    <a class="btn" href="https://www.linkedin.com/in/guisantoslima/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    <a class="btn" href="https://github.com/guisantoslima" target="_blank" rel="noopener">GitHub ↗</a>
+  </div>
+</section>
+
+<section id="sobre">
+  <div class="eyebrow" data-i18n="about_eyebrow">sobre</div>
+  <h2 data-i18n="about_title">Arquitetura que sustenta o negócio, não só o sistema</h2>
+  <p class="section-sub" data-i18n="about_sub">+15 anos desenhando e governando soluções Salesforce em ambientes corporativos.</p>
+  <div class="about-grid">
+    <div>
+      <p data-i18n="about_p1">Atuo como Trusted Advisor para lideranças de tecnologia e negócio, traduzindo objetivos estratégicos em arquiteturas Salesforce sólidas, seguras e prontas para escalar.</p>
+      <p data-i18n="about_p2">Tenho experiência liderando Centros de Excelência (CoE), estabelecendo padrões, governança e boas práticas que elevam a maturidade das equipes e da plataforma.</p>
+    </div>
+    <div>
+      <p data-i18n="about_p3">Aplico frameworks de arquitetura corporativa (TOGAF ADM) para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.</p>
+      <div class="stack">
+        <span class="chip">Solution Architecture</span>
+        <span class="chip">TOGAF</span>
+        <span class="chip">Salesforce CoE</span>
+        <span class="chip">Trusted Advisor</span>
+        <span class="chip">Governança de Plataforma</span>
+        <span class="chip">Roadmap</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="especialidades">
+  <div class="eyebrow" data-i18n="services_eyebrow">especialidades</div>
+  <h2 data-i18n="services_title">Como posso ajudar</h2>
+  <p class="section-sub" data-i18n="services_sub">Arquitetura, governança e evolução de plataforma Salesforce.</p>
+  <div class="services">
+    <div class="card">
+      <span class="tag" data-i18n="s1_tag">01 · arquitetura</span>
+      <h3 data-i18n="s1_title">Solution Architecture</h3>
+      <p data-i18n="s1_desc">Desenho de arquiteturas Salesforce escaláveis, seguras e alinhadas à estratégia do negócio.</p>
+    </div>
+    <div class="card">
+      <span class="tag" data-i18n="s2_tag">02 · governança</span>
+      <h3 data-i18n="s2_title">Center of Excellence</h3>
+      <p data-i18n="s2_desc">Implementação de CoE, padrões de desenvolvimento e governança multi-org.</p>
+    </div>
+    <div class="card">
+      <span class="tag" data-i18n="s3_tag">03 · consultoria</span>
+      <h3 data-i18n="s3_title">Trusted Advisor</h3>
+      <p data-i18n="s3_desc">Aconselhamento estratégico contínuo para lideranças técnicas e de negócio.</p>
+    </div>
+  </div>
+</section>
+
+<section id="experiencia">
+  <div class="eyebrow" data-i18n="exp_eyebrow">experiência</div>
+  <h2 data-i18n="exp_title">Trajetória profissional</h2>
+  <p class="section-sub" data-i18n="exp_sub">Mais de 15 anos dedicados ao ecossistema Salesforce.</p>
+  <div class="timeline">
+    <div class="tl-item">
+      <span class="yr mono" data-i18n="exp1_yr">Atual</span>
+      <span><h3 data-i18n="exp1_title">Sr. Salesforce Solution Architect</h3><p data-i18n="exp1_desc">Liderança de arquitetura de soluções multi-cloud, definição de padrões corporativos e mentoria técnica de equipes.</p></span>
+    </div>
+    <div class="tl-item">
+      <span class="yr mono" data-i18n="exp2_yr">Anteriormente</span>
+      <span><h3 data-i18n="exp2_title">Center of Excellence Lead</h3><p data-i18n="exp2_desc">Estruturação de CoE Salesforce, definição de governança e processos de qualidade para múltiplos times.</p></span>
+    </div>
+    <div class="tl-item">
+      <span class="yr mono" data-i18n="exp3_yr">+15 anos</span>
+      <span><h3 data-i18n="exp3_title">Consultoria & Implementação Salesforce</h3><p data-i18n="exp3_desc">Projetos de implementação e evolução de plataforma para clientes de grande porte em diversos setores.</p></span>
+    </div>
+  </div>
+
+  <div style="height:28px"></div>
+  <div class="certs">
+    <span class="cert">TOGAF</span>
+    <span class="cert">CoE</span>
+    <span class="cert">Salesforce Solution Architect</span>
+    <span class="cert">Salesforce Application Architect</span>
+    <span class="cert">Salesforce System Architect</span>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="eyebrow" data-i18n="contact_eyebrow">contato</div>
+  <h2 data-i18n="contact_title">Vamos conversar</h2>
+  <p class="section-sub" data-i18n="contact_sub">Pelo email, costumo responder em até 1 dia útil.</p>
+  <div class="contact-box">
+    <p data-i18n="contact_p">Tem um desafio de arquitetura Salesforce, uma iniciativa de CoE ou quer trocar uma ideia sobre estratégia de plataforma? Me chame por qualquer um dos canais abaixo.</p>
+    <div class="contact-links">
+      <a href="mailto:contato@guilhermelima.dev"><span class="k">email</span> → guisantoslima@proton.me</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Guilherme Lima — <span class="mono" data-i18n="footer_made">feito com HTML & café ☕</span>
+</footer>
+
+<script>
+  /* ---------- translations ---------- */
+  const translations = {
+    pt: {
+      nav_about:"sobre", nav_services:"especialidades", nav_experience:"experiência", nav_contact:"contato",
+      theme_light:"modo claro", theme_dark:"modo escuro",
+      typed_text:"Guilherme Lima — Sr. Salesforce Solution Architect, Trusted Advisor.",
+      role:"Sr. Salesforce Solution Architect",
+      role_sub:"Trusted Advisor · CoE · TOGAF · +15 anos de experiência em Salesforce",
+      tagline:"Desenho arquiteturas Salesforce escaláveis e governança de plataforma para grandes empresas, conectando estratégia de negócio a soluções técnicas robustas.",
+      cta_contact:"Falar comigo", cta_experience:"Ver experiência",
+      about_eyebrow:"sobre", about_title:"Arquitetura que sustenta o negócio, não só o sistema",
+      about_sub:"+15 anos desenhando e governando soluções Salesforce em ambientes corporativos.",
+      about_p1:"Atuo como Trusted Advisor para lideranças de tecnologia e negócio, traduzindo objetivos estratégicos em arquiteturas Salesforce sólidas, seguras e prontas para escalar.",
+      about_p2:"Tenho experiência liderando Centros de Excelência (CoE), estabelecendo padrões, governança e boas práticas que elevam a maturidade das equipes e da plataforma.",
+      about_p3:"Certificado TOGAF, aplico frameworks de arquitetura corporativa para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.",
+      services_eyebrow:"especialidades", services_title:"Como posso ajudar",
+      services_sub:"Arquitetura, governança e evolução de plataforma Salesforce.",
+      s1_tag:"01 · arquitetura", s1_title:"Solution Architecture", s1_desc:"Desenho de arquiteturas Salesforce escaláveis, seguras e alinhadas à estratégia do negócio.",
+      s2_tag:"02 · governança", s2_title:"Center of Excellence", s2_desc:"Implementação de CoE, padrões de desenvolvimento e governança multi-org.",
+      s3_tag:"03 · consultoria", s3_title:"Trusted Advisor", s3_desc:"Aconselhamento estratégico contínuo para lideranças técnicas e de negócio.",
+      exp_eyebrow:"experiência", exp_title:"Trajetória profissional",
+      exp_sub:"Mais de 15 anos dedicados ao ecossistema Salesforce.",
+      exp1_yr:"Atual", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Liderança de arquitetura de soluções multi-cloud, definição de padrões corporativos e mentoria técnica de equipes.",
+      exp2_yr:"Anteriormente", exp2_title:"Center of Excellence Lead", exp2_desc:"Estruturação de CoE Salesforce, definição de governança e processos de qualidade para múltiplos times.",
+      exp3_yr:"+15 anos", exp3_title:"Consultoria & Implementação Salesforce", exp3_desc:"Projetos de implementação e evolução de plataforma para clientes de grande porte em diversos setores.",
+      contact_eyebrow:"contato", contact_title:"Vamos conversar", contact_sub:"Respondo em até 1 dia útil.",
+      contact_p:"Tem um desafio de arquitetura Salesforce, uma iniciativa de CoE ou quer trocar uma ideia sobre estratégia de plataforma? Me chame por qualquer um dos canais abaixo.",
+      footer_made:"feito com HTML & café ☕"
+    },
+    en: {
+      nav_about:"about", nav_services:"expertise", nav_experience:"experience", nav_contact:"contact",
+      theme_light:"light mode", theme_dark:"dark mode",
+      typed_text:"Guilherme Lima — Sr. Salesforce Solution Architect, Trusted Advisor.",
+      role:"Sr. Salesforce Solution Architect",
+      role_sub:"Trusted Advisor · CoE · TOGAF · +15 years of Salesforce experience",
+      tagline:"I design scalable Salesforce architectures and platform governance for large enterprises, connecting business strategy to robust technical solutions.",
+      cta_contact:"Get in touch", cta_experience:"View experience",
+      about_eyebrow:"about", about_title:"Architecture that supports the business, not just the system",
+      about_sub:"15+ years designing and governing Salesforce solutions in enterprise environments.",
+      about_p1:"I act as a Trusted Advisor to technology and business leadership, translating strategic goals into solid, secure, and scalable Salesforce architectures.",
+      about_p2:"I have experience leading Centers of Excellence (CoE), establishing standards, governance, and best practices that raise team and platform maturity.",
+      about_p3:"TOGAF certified, I apply enterprise architecture frameworks to ensure every solution aligns with the organization's long-term roadmap.",
+      services_eyebrow:"expertise", services_title:"How I can help",
+      services_sub:"Architecture, governance, and evolution of the Salesforce platform.",
+      s1_tag:"01 · architecture", s1_title:"Solution Architecture", s1_desc:"Design of scalable, secure Salesforce architectures aligned with business strategy.",
+      s2_tag:"02 · governance", s2_title:"Center of Excellence", s2_desc:"CoE implementation, development standards, and multi-org governance.",
+      s3_tag:"03 · advisory", s3_title:"Trusted Advisor", s3_desc:"Ongoing strategic advisory for technical and business leadership.",
+      exp_eyebrow:"experience", exp_title:"Professional journey",
+      exp_sub:"15+ years dedicated to the Salesforce ecosystem.",
+      exp1_yr:"Current", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Leading multi-cloud solution architecture, defining enterprise standards, and technical mentoring for teams.",
+      exp2_yr:"Previously", exp2_title:"Center of Excellence Lead", exp2_desc:"Structuring Salesforce CoE, defining governance and quality processes across multiple teams.",
+      exp3_yr:"15+ years", exp3_title:"Salesforce Consulting & Implementation", exp3_desc:"Implementation and platform evolution projects for large clients across multiple industries.",
+      contact_eyebrow:"contact", contact_title:"Let's talk", contact_sub:"I usually reply within 1 business day.",
+      contact_p:"Have a Salesforce architecture challenge, a CoE initiative, or want to talk platform strategy? Reach out through any of the channels below.",
+      footer_made:"made with HTML & coffee ☕"
+    }
+  };
+
+  let currentLang = 'pt';
+
+  function applyTranslations(lang){
+    document.querySelectorAll('[data-i18n]').forEach(el=>{
+      const key = el.getAttribute('data-i18n');
+      if(translations[lang][key]) el.textContent = translations[lang][key];
+    });
+    document.getElementById('themeToggle').textContent =
+      document.body.getAttribute('data-theme') === 'dark' ? translations[lang].theme_light : translations[lang].theme_dark;
+    document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    document.getElementById('langPt').classList.toggle('active', lang==='pt');
+    document.getElementById('langEn').classList.toggle('active', lang==='en');
+  }
+
+  document.getElementById('langPt').addEventListener('click', ()=>{
+    currentLang='pt'; applyTranslations('pt'); runTyping();
+  });
+  document.getElementById('langEn').addEventListener('click', ()=>{
+    currentLang='en'; applyTranslations('en'); runTyping();
+  });
+
+  /* ---------- theme toggle ---------- */
+  const root = document.body;
+  const themeToggle = document.getElementById('themeToggle');
+  function applyTheme(t){
+    root.setAttribute('data-theme', t);
+    themeToggle.textContent = t === 'dark' ? translations[currentLang].theme_light : translations[currentLang].theme_dark;
+  }
+  applyTheme('dark');
+  themeToggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+  });
+
+  /* ---------- typed line effect ---------- */
+  const el = document.getElementById('typedLine');
+  let typingTimer;
+  function runTyping(){
+    clearTimeout(typingTimer);
+    const text = translations[currentLang].typed_text;
+    let i = 0;
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      el.innerHTML = text;
+      return;
+    }
+    function type(){
+      if(i <= text.length){
+        el.innerHTML = text.slice(0,i) + '<span class="cursor"></span>';
+        i++;
+        typingTimer = setTimeout(type, 28);
+      }
+    }
+    type();
+  }
+  runTyping();
+</script>
+
+</body>
+
+</html>
