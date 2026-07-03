@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guilherme Lima — Sr. Salesforce Solution Architect</title>
+<title>☁️ Guilherme Lima · Salesforce</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
@@ -160,18 +160,52 @@
   .card h3{font-size:16px;margin-bottom:8px;}
   .card p{color:var(--text-dim);font-size:13.5px;}
 
-  /* experience */
-  .timeline{display:flex;flex-direction:column;border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-  .tl-item{
-    display:grid;grid-template-columns:130px 1fr;gap:18px;align-items:start;
-    padding:18px 22px;border-bottom:1px solid var(--border);
-    background:var(--panel);
+  /* experience — zigzag timeline */
+  section.wide{max-width:1040px;}
+  .eyebrow-caps{
+    font-size:11px;color:var(--accent);letter-spacing:.18em;
+    text-transform:uppercase;margin-bottom:22px;font-weight:600;
   }
-  .tl-item:last-child{border-bottom:none;}
-  .tl-item:hover{background:var(--bg-soft);}
-  .tl-item .yr{font-family:var(--font-mono);color:var(--text-dim);font-size:13px;padding-top:2px;}
-  .tl-item h3{font-size:15.5px;margin-bottom:4px;}
-  .tl-item p{color:var(--text-dim);font-size:13.5px;}
+  .exp-headline{
+    font-size:clamp(34px,5.2vw,50px);font-weight:800;
+    line-height:1.08;letter-spacing:-0.02em;margin-bottom:16px;
+    max-width:480px;
+  }
+  .exp-intro{color:var(--text-dim);font-size:15px;margin-bottom:56px;}
+
+  .timeline-zigzag{position:relative;padding:8px 0 4px;}
+  .timeline-zigzag::before{
+    content:'';position:absolute;left:50%;top:6px;bottom:6px;
+    width:1px;background:var(--border);transform:translateX(-50%);
+  }
+  .tz-item{position:relative;width:47%;padding-bottom:64px;}
+  .tz-item:last-child{padding-bottom:0;}
+  .tz-right{margin-left:53%;text-align:left;}
+  .tz-left{margin-left:0;text-align:right;}
+  .tz-dot{
+    position:absolute;top:5px;width:9px;height:9px;border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .tz-right .tz-dot{left:-37px;}
+  .tz-left .tz-dot{right:-37px;}
+  .tz-year{
+    display:block;font-size:11.5px;color:var(--accent);
+    letter-spacing:.1em;margin-bottom:10px;
+  }
+  .tz-item h3{font-size:19px;font-weight:700;margin-bottom:8px;}
+  .tz-item p{color:var(--text-dim);font-size:14px;max-width:340px;}
+  .tz-right p{margin-right:auto;}
+  .tz-left p{margin-left:auto;}
+
+  @media(max-width:720px){
+    .timeline-zigzag::before{left:6px;}
+    .tz-item, .tz-right, .tz-left{
+      width:100%;margin-left:0;text-align:left;padding-left:32px;padding-bottom:40px;
+    }
+    .tz-right .tz-dot, .tz-left .tz-dot{left:1px;right:auto;}
+    .tz-item p{max-width:none;margin:0;}
+  }
 
   /* certifications */
   .certs{display:flex;flex-wrap:wrap;gap:10px;}
@@ -232,7 +266,7 @@
   <div class="window">
     <div class="window-bar">
       <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
-      <div class="window-title">guisantoslima@root — zsh</div>
+      <div class="window-title">root@guisantoslima — zsh</div>
     </div>
     <div class="window-body">
       <div class="line"><span class="prompt">$</span> whoami</div>
@@ -241,14 +275,14 @@
   </div>
 
   <h1 class="name">~/ Guilherme Lima</h1>
-  <div class="role" data-i18n="role">Sr. Salesforce Solution Architect</div>
+  <div class="role" data-i18n="role">Senior Salesforce Solution Architect</div>
   <div class="role-sub" data-i18n="role_sub">Trusted Advisor · CoE · TOGAF · +15 anos de experiência em Salesforce</div>
   <p class="tagline" data-i18n="tagline">Desenho arquiteturas Salesforce escaláveis e governança de plataforma para grandes empresas, conectando estratégia de negócio a soluções técnicas robustas.</p>
   <div class="cta-row">
     <a class="btn primary" href="#contato" data-i18n="cta_contact">Falar comigo</a>
     <a class="btn" href="#experiencia" data-i18n="cta_experience">Ver experiência</a>
     <a class="btn" href="https://www.linkedin.com/in/guisantoslima/" target="_blank" rel="noopener">LinkedIn ↗</a>
-    <a class="btn" href="https://github.com/guisantoslima" target="_blank" rel="noopener">GitHub ↗</a>
+    <a class="btn" href="https://www.github.com/guisantoslima/" target="_blank" rel="noopener">GitHub ↗</a>
   </div>
 </section>
 
@@ -262,14 +296,17 @@
       <p data-i18n="about_p2">Tenho experiência liderando Centros de Excelência (CoE), estabelecendo padrões, governança e boas práticas que elevam a maturidade das equipes e da plataforma.</p>
     </div>
     <div>
-      <p data-i18n="about_p3">Aplico frameworks de arquitetura corporativa (TOGAF ADM) para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.</p>
+      <p data-i18n="about_p3">Aplico frameworks de arquitetura corporativa para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.</p>
       <div class="stack">
-        <span class="chip">Solution Architecture</span>
-        <span class="chip">TOGAF</span>
+        <span class="chip">Salesforce Solution Architecture</span>
         <span class="chip">Salesforce CoE</span>
-        <span class="chip">Trusted Advisor</span>
-        <span class="chip">Governança de Plataforma</span>
-        <span class="chip">Roadmap</span>
+        <span class="chip">Salesforce Trusted Advisor</span>
+        <span class="chip">Salesforce Platform Governance</span>
+        <span class="chip">Salesforce Technical Architecture</span>
+        <span class="chip">Salesforce Technical Lead</span>
+        <span class="cert">TOGAF</span>
+        <span class="cert">ZACHMAN</span>
+        <span class="cert">C4 MODEL</span>
       </div>
     </div>
   </div>
@@ -296,34 +333,44 @@
       <p data-i18n="s3_desc">Aconselhamento estratégico contínuo para lideranças técnicas e de negócio.</p>
     </div>
   </div>
+    <div style="height:44px"></div>
+  <div class="certs">
+    <span class="cert">Sales Cloud</span>
+    <span class="cert">Service Cloud</span>
+    <span class="cert">Marketing Cloud</span>
+    <span class="cert">Community Cloud</span>
+    <span class="cert">Industry Cloud</span>
+    <span class="cert">Media Cloud</span>
+    <span class="cert">Headless 360</span>
+    <span class="cert">Agentforce</span>
+    <span class="cert">Digital Engagement</span>
+  </div>
 </section>
 
 <section id="experiencia">
-  <div class="eyebrow" data-i18n="exp_eyebrow">experiência</div>
-  <h2 data-i18n="exp_title">Trajetória profissional</h2>
-  <p class="section-sub" data-i18n="exp_sub">Mais de 15 anos dedicados ao ecossistema Salesforce.</p>
-  <div class="timeline">
-    <div class="tl-item">
-      <span class="yr mono" data-i18n="exp1_yr">Atual</span>
-      <span><h3 data-i18n="exp1_title">Sr. Salesforce Solution Architect</h3><p data-i18n="exp1_desc">Liderança de arquitetura de soluções multi-cloud, definição de padrões corporativos e mentoria técnica de equipes.</p></span>
-    </div>
-    <div class="tl-item">
-      <span class="yr mono" data-i18n="exp2_yr">Anteriormente</span>
-      <span><h3 data-i18n="exp2_title">Center of Excellence Lead</h3><p data-i18n="exp2_desc">Estruturação de CoE Salesforce, definição de governança e processos de qualidade para múltiplos times.</p></span>
-    </div>
-    <div class="tl-item">
-      <span class="yr mono" data-i18n="exp3_yr">+15 anos</span>
-      <span><h3 data-i18n="exp3_title">Consultoria & Implementação Salesforce</h3><p data-i18n="exp3_desc">Projetos de implementação e evolução de plataforma para clientes de grande porte em diversos setores.</p></span>
-    </div>
-  </div>
+  <div class="eyebrow" data-i18n="services_eyebrow">trajetória</div>
+  <h2 data-i18n="services_title">Quinze anos, uma plataforma.</h2>
+  <p class="section-sub" data-i18n="services_sub">Uma linha do tempo condensada das eras que ajudei a construir.</p>
 
-  <div style="height:28px"></div>
-  <div class="certs">
-    <span class="cert">TOGAF</span>
-    <span class="cert">CoE</span>
-    <span class="cert">Salesforce Solution Architect</span>
-    <span class="cert">Salesforce Application Architect</span>
-    <span class="cert">Salesforce System Architect</span>
+  <div class="timeline-zigzag">
+    <div class="tz-item tz-right">
+      <div class="tz-dot"></div>
+      <span class="tz-year mono" data-i18n="exp1_yr">2020 — ATUAL</span>
+      <h3 data-i18n="exp1_title">Sr. Salesforce Solution Architect</h3>
+      <p data-i18n="exp1_desc">Liderança de programas multi-cloud, revisões de arquitetura e adoção de IA para clientes enterprise.</p>
+    </div>
+    <div class="tz-item tz-left">
+      <div class="tz-dot"></div>
+      <span class="tz-year mono" data-i18n="exp2_yr">2015 — 2020</span>
+      <h3 data-i18n="exp2_title">Salesforce Tech Lead</h3>
+      <p data-i18n="exp2_desc">Rollouts de Sales, Service e Community Cloud pela América Latina com stakeholders globais.</p>
+    </div>
+    <div class="tz-item tz-right">
+      <div class="tz-dot"></div>
+      <span class="tz-year mono" data-i18n="exp3_yr">2010 — 2015</span>
+      <h3 data-i18n="exp3_title">Sr. Salesforce Consultant &amp; Developer</h3>
+      <p data-i18n="exp3_desc">Construí os fundamentos — Apex, Visualforce, automação declarativa — e me apaixonei pela plataforma.</p>
+    </div>
   </div>
 </section>
 
@@ -334,7 +381,9 @@
   <div class="contact-box">
     <p data-i18n="contact_p">Tem um desafio de arquitetura Salesforce, uma iniciativa de CoE ou quer trocar uma ideia sobre estratégia de plataforma? Me chame por qualquer um dos canais abaixo.</p>
     <div class="contact-links">
-      <a href="mailto:contato@guilhermelima.dev"><span class="k">email</span> → guisantoslima@proton.me</a>
+      <a href="mailto:guisantoslima@proton.me"><span class="k">email</span> → guisantoslima@proton.me</a>
+      <a href="https://www.linkedin.com/in/guisantoslima/" target="_blank" rel="noopener"><span class="k">linkedin</span> → /in/guisantoslima</a>
+      <a href="https://github.com/guisantoslima" target="_blank" rel="noopener"><span class="k">github</span> → /guisantoslima</a>
     </div>
   </div>
 </section>
@@ -349,8 +398,8 @@
     pt: {
       nav_about:"sobre", nav_services:"especialidades", nav_experience:"experiência", nav_contact:"contato",
       theme_light:"modo claro", theme_dark:"modo escuro",
-      typed_text:"Guilherme Lima — Sr. Salesforce Solution Architect, Trusted Advisor.",
-      role:"Sr. Salesforce Solution Architect",
+      typed_text:"Guilherme Lima — Senior Salesforce Solution Architect",
+      role:"Senior Salesforce Solution Architect",
       role_sub:"Trusted Advisor · CoE · TOGAF · +15 anos de experiência em Salesforce",
       tagline:"Desenho arquiteturas Salesforce escaláveis e governança de plataforma para grandes empresas, conectando estratégia de negócio a soluções técnicas robustas.",
       cta_contact:"Falar comigo", cta_experience:"Ver experiência",
@@ -358,26 +407,26 @@
       about_sub:"+15 anos desenhando e governando soluções Salesforce em ambientes corporativos.",
       about_p1:"Atuo como Trusted Advisor para lideranças de tecnologia e negócio, traduzindo objetivos estratégicos em arquiteturas Salesforce sólidas, seguras e prontas para escalar.",
       about_p2:"Tenho experiência liderando Centros de Excelência (CoE), estabelecendo padrões, governança e boas práticas que elevam a maturidade das equipes e da plataforma.",
-      about_p3:"Certificado TOGAF, aplico frameworks de arquitetura corporativa para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.",
+      about_p3:"Aplico frameworks de arquitetura corporativa para garantir que cada solução esteja alinhada ao roadmap de longo prazo da organização.",
       services_eyebrow:"especialidades", services_title:"Como posso ajudar",
       services_sub:"Arquitetura, governança e evolução de plataforma Salesforce.",
       s1_tag:"01 · arquitetura", s1_title:"Solution Architecture", s1_desc:"Desenho de arquiteturas Salesforce escaláveis, seguras e alinhadas à estratégia do negócio.",
       s2_tag:"02 · governança", s2_title:"Center of Excellence", s2_desc:"Implementação de CoE, padrões de desenvolvimento e governança multi-org.",
       s3_tag:"03 · consultoria", s3_title:"Trusted Advisor", s3_desc:"Aconselhamento estratégico contínuo para lideranças técnicas e de negócio.",
-      exp_eyebrow:"experiência", exp_title:"Trajetória profissional",
-      exp_sub:"Mais de 15 anos dedicados ao ecossistema Salesforce.",
-      exp1_yr:"Atual", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Liderança de arquitetura de soluções multi-cloud, definição de padrões corporativos e mentoria técnica de equipes.",
-      exp2_yr:"Anteriormente", exp2_title:"Center of Excellence Lead", exp2_desc:"Estruturação de CoE Salesforce, definição de governança e processos de qualidade para múltiplos times.",
-      exp3_yr:"+15 anos", exp3_title:"Consultoria & Implementação Salesforce", exp3_desc:"Projetos de implementação e evolução de plataforma para clientes de grande porte em diversos setores.",
-      contact_eyebrow:"contato", contact_title:"Vamos conversar", contact_sub:"Costumo responder em até 1 dia útil.",
+      exp_eyebrow:"trajetória", exp_title:"Quinze anos, uma plataforma.",
+      exp_sub:"Uma linha do tempo condensada das eras que ajudei a construir.",
+      exp1_yr:"2020 — ATUAL", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Liderança de programas multi-cloud, revisões de arquitetura e adoção de IA para clientes enterprise.",
+      exp2_yr:"2015 — 2020", exp2_title:"Salesforce Tech Lead", exp2_desc:"Rollouts de Sales, Service e Community Cloud pela América Latina com stakeholders globais.",
+      exp3_yr:"2010 — 2015", exp3_title:"Sr. Salesforce Consultant & Developer", exp3_desc:"Construí os fundamentos — Apex, Visualforce, automação declarativa — e me apaixonei pela plataforma.",
+      contact_eyebrow:"contato", contact_title:"Vamos conversar", contact_sub:"Cosetumo responder em até 1 dia útil.",
       contact_p:"Tem um desafio de arquitetura Salesforce, uma iniciativa de CoE ou quer trocar uma ideia sobre estratégia de plataforma? Me chame por qualquer um dos canais abaixo.",
       footer_made:"feito com HTML & café ☕"
     },
     en: {
       nav_about:"about", nav_services:"expertise", nav_experience:"experience", nav_contact:"contact",
       theme_light:"light mode", theme_dark:"dark mode",
-      typed_text:"Guilherme Lima — Sr. Salesforce Solution Architect, Trusted Advisor.",
-      role:"Sr. Salesforce Solution Architect",
+      typed_text:"Guilherme Lima — Senior Salesforce Solution Architect",
+      role:"Senior Salesforce Solution Architect",
       role_sub:"Trusted Advisor · CoE · TOGAF · +15 years of Salesforce experience",
       tagline:"I design scalable Salesforce architectures and platform governance for large enterprises, connecting business strategy to robust technical solutions.",
       cta_contact:"Get in touch", cta_experience:"View experience",
@@ -391,11 +440,11 @@
       s1_tag:"01 · architecture", s1_title:"Solution Architecture", s1_desc:"Design of scalable, secure Salesforce architectures aligned with business strategy.",
       s2_tag:"02 · governance", s2_title:"Center of Excellence", s2_desc:"CoE implementation, development standards, and multi-org governance.",
       s3_tag:"03 · advisory", s3_title:"Trusted Advisor", s3_desc:"Ongoing strategic advisory for technical and business leadership.",
-      exp_eyebrow:"experience", exp_title:"Professional journey",
-      exp_sub:"15+ years dedicated to the Salesforce ecosystem.",
-      exp1_yr:"Current", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Leading multi-cloud solution architecture, defining enterprise standards, and technical mentoring for teams.",
-      exp2_yr:"Previously", exp2_title:"Center of Excellence Lead", exp2_desc:"Structuring Salesforce CoE, defining governance and quality processes across multiple teams.",
-      exp3_yr:"15+ years", exp3_title:"Salesforce Consulting & Implementation", exp3_desc:"Implementation and platform evolution projects for large clients across multiple industries.",
+      exp_eyebrow:"journey", exp_title:"Fifteen years, one platform.",
+      exp_sub:"A condensed timeline of the eras I helped build.",
+      exp1_yr:"2020 — PRESENT", exp1_title:"Sr. Salesforce Solution Architect", exp1_desc:"Leading multi-cloud programs, architecture reviews, and AI adoption for enterprise clients.",
+      exp2_yr:"2015 — 2020", exp2_title:"Salesforce Tech Lead", exp2_desc:"Sales, Service, and Community Cloud rollouts across Latin America with global stakeholders.",
+      exp3_yr:"2010 — 2015", exp3_title:"Sr. Salesforce Consultant & Developer", exp3_desc:"Built the fundamentals — Apex, Visualforce, declarative automation — and fell in love with the platform.",
       contact_eyebrow:"contact", contact_title:"Let's talk", contact_sub:"I usually reply within 1 business day.",
       contact_p:"Have a Salesforce architecture challenge, a CoE initiative, or want to talk platform strategy? Reach out through any of the channels below.",
       footer_made:"made with HTML & coffee ☕"
@@ -460,5 +509,4 @@
 </script>
 
 </body>
-
 </html>
